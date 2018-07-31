@@ -7,12 +7,12 @@ def initSudokuList(dataList,value):
 def printSudokuList(list):
     print ('')
     for i in range(81):
-        for j in range(4-len(str(list[i]))):
+        for j in range(3-len(str(list[i]).strip())):
             print (' ',end='')
-        if (list[i]!=46):
-            print (str(list[i]).strip(),end='')
+        if (list[i] != 46):
+            print (str(list[i]).strip()+' ',end='')
         else:
-            print (' ',end='')
+            print ('-',end='')
         if ((i+1)%3 == 0):
             print(' ',end='')
         if ((i+1)%9 == 0):
@@ -20,12 +20,12 @@ def printSudokuList(list):
         if ((i+1)%27 == 0):
             print ('')
 
-def solveSudokuList(dataList, fixList):
+def solveSudokuList(dataList, fixList, primeList):
     for i in range(81):
         if(dataList[i] < 10):
-            eliminate(dataList,i)
+            eliminate(dataList,i, primeList)
 
-def eliminate(dataList, index):
+def eliminate(dataList, index, primeList):
     listToDelete = list()
     for i in range(81):
         listToDelete.append(0)
@@ -45,11 +45,22 @@ def eliminate(dataList, index):
         listToDelete[start+j*9] = 1
     for i in range(0,81):
         if( listToDelete[i] == 1 and dataList[i] > 9):
-            dataList[i] = dataList[i] - dataList[index]
+            if(dataList[i] % primeList[dataList[index]] == 0):
+                dataList[i] = dataList[i] / primeList[dataList[index]]
 
 def check(dataList, fixList):
-    return
-            
+    for i in range(0,8,3):
+        for j in range(0,72,27):
+            # Looping through 1st element of each block
+            tempList = list()
+            for i1 in range(i,i+3):
+                for j1 in range(j,j+27,9):
+                    # Looping through every elements in one block
+                    # Add indexes in a list
+                    tempList.append(i1+j1)
+            # Check validity of each block
+            #for p in range(10):
+
 
 def loadChallenge(file,list,fixList):
     f = open(file,'r')
@@ -74,22 +85,23 @@ f.close()
 sList = list()
 fixList = list()
 
-initSudokuList(sList,45)
+initSudokuList(sList,223092870)
 initSudokuList(fixList,0)
 
 loadChallenge("problem1.txt",sList,fixList)
 printSudokuList(sList)
 
 #print (matrix)
-solveSudokuList(sList, primeTable)
+solveSudokuList(sList, fixList, primeTable)
 printSudokuList(sList)
-solveSudokuList(sList, primeTable)
-printSudokuList(sList)
-solveSudokuList(sList, primeTable)
-printSudokuList(sList)
+check(sList,fixList)
+#solveSudokuList(sList, primeTable)
+#printSudokuList(sList)
+#solveSudokuList(sList, primeTable)
+#printSudokuList(sList)
 #eliminate(sList,8)
 
-printSudokuList(sList)
+
 
 
 
