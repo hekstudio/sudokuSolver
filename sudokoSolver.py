@@ -5,6 +5,7 @@ def initSudokuList(dataList,value):
             dataList.append(value)
 
 def printSudokuList(list):
+    print ('----------------------------------------')
     print ('')
     for i in range(81):
         for j in range(3-len(str(list[i]).strip())):
@@ -22,11 +23,13 @@ def printSudokuList(list):
     print ('----------------------------------------')
 
 def printList(list):
+    print (' --- Printing List ---')
     for i in range(81):
         print (str(i)+"  "+str(list[i]))
+    print (' --- End of List ---')
 
 def solveSudokuList(dataList, fixList):
-    for i in range(1):
+    for i in range(81):
         if(fixList[i] == 1):
             eliminate(dataList,i,fixList)
 
@@ -45,20 +48,18 @@ def eliminate(dataList, index, fixList):
         # Determine which row to delete
         listToDelete[j] = 1
     start = index%9
-    for j in range(0,9):
+    for j in range(9):
         # Determine which column to delete
         listToDelete[start+j*9] = 1
-    printSudokuList(listToDelete)
-    test1 = 0
-    #dataList[1].pop(8-1)
-    for i in range(81):
+    #printSudokuList(listToDelete)
+    # Delete the occurance of known number
+    for i in range(0,81):
         if ( listToDelete[i] == 1 and fixList[i] != 1):
-            print(str(i)+" "+str(dataList[index])+str(dataList[i]))
-            if (dataList[index] in dataList[i]):
-                test1 = test1 + 1
-                number = dataList[index]
-                dataList[i].remove(number)
-    print("TEST1 "+str(test1))
+            # Element needs to be eliminated
+            if dataList[index] in dataList[i]:
+                temp = dataList[i].copy()     # Make a shallow copy first
+                temp.remove(dataList[index])  # Remove the value from copy
+                dataList[i] = temp            # Assign the copy to the original list
 
 def check(dataList, fixList):
     tempList = list()
