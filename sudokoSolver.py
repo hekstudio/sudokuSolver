@@ -23,14 +23,14 @@ def printSudokuList(list):
 
 def printList(list):
     for i in range(81):
-        print (list[i])
+        print (str(i)+"  "+str(list[i]))
 
 def solveSudokuList(dataList, fixList):
-    for i in range(81):
-        if(dataList[i] < 10):
-            eliminate(dataList,i)
+    for i in range(1):
+        if(fixList[i] == 1):
+            eliminate(dataList,i,fixList)
 
-def eliminate(dataList, index):
+def eliminate(dataList, index, fixList):
     listToDelete = list()
     for i in range(81):
         listToDelete.append(0)
@@ -48,9 +48,17 @@ def eliminate(dataList, index):
     for j in range(0,9):
         # Determine which column to delete
         listToDelete[start+j*9] = 1
+    printSudokuList(listToDelete)
+    test1 = 0
+    #dataList[1].pop(8-1)
     for i in range(81):
-        if ( listToDelete[i] == 1 and i != index and dataList[i] > 9):
-            dataList[i] = dataList[i] - dataList[index]
+        if ( listToDelete[i] == 1 and fixList[i] != 1):
+            print(str(i)+" "+str(dataList[index])+str(dataList[i]))
+            if (dataList[index] in dataList[i]):
+                test1 = test1 + 1
+                number = dataList[index]
+                dataList[i].remove(number)
+    print("TEST1 "+str(test1))
 
 def check(dataList, fixList):
     tempList = list()
@@ -62,9 +70,9 @@ def check(dataList, fixList):
         # Go through each row
         for j in range(i,i+9):
             if (fixList(j) == 1):
-                tempFix.append(dataList[j])
+                tempFix.append(j)
             else:
-                tempList.append(dataList[j])
+                tempList.append(j)
     return
             
 
@@ -91,16 +99,18 @@ f.close()
 sList = list()
 fixList = list()
 
-initSudokuList(sList,45)
+initSudokuList(sList,[1,2,3,4,5,6,7,8,9])
 initSudokuList(fixList,0)
 
-printSudokuList(sList)
+
+printList(sList)
 loadChallenge("problem1.txt",sList,fixList)
-printSudokuList(sList)
+printSudokuList(fixList)
+printList(sList)
 
 #print (matrix)
-solveSudokuList(sList, primeTable)
-printSudokuList(sList)
+solveSudokuList(sList,fixList)
+printList(sList)
 #printSudokuList(sList)
 #solveSudokuList(sList, primeTable)
 #printSudokuList(sList)
