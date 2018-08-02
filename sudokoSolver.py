@@ -19,6 +19,11 @@ def printSudokuList(list):
             print ('')
         if ((i+1)%27 == 0):
             print ('')
+    print ('----------------------------------------')
+
+def printList(list):
+    for i in range(81):
+        print (list[i])
 
 def solveSudokuList(dataList, fixList):
     for i in range(81):
@@ -29,7 +34,7 @@ def eliminate(dataList, index):
     listToDelete = list()
     for i in range(81):
         listToDelete.append(0)
-    start = int(i%9/3)*3
+    start = int(index%9/3)*3+int(index/27)*27
     for j in range(start,start+3):
         # Determine which block to delete
         listToDelete[j] = 1
@@ -43,8 +48,8 @@ def eliminate(dataList, index):
     for j in range(0,9):
         # Determine which column to delete
         listToDelete[start+j*9] = 1
-    for i in range(0,81):
-        if( listToDelete[i] == 1 and dataList[i] > 9):
+    for i in range(81):
+        if ( listToDelete[i] == 1 and i != index and dataList[i] > 9):
             dataList[i] = dataList[i] - dataList[index]
 
 def check(dataList, fixList):
@@ -77,19 +82,21 @@ fixList = list()
 initSudokuList(sList,45)
 initSudokuList(fixList,0)
 
+printSudokuList(sList)
 loadChallenge("problem1.txt",sList,fixList)
 printSudokuList(sList)
 
 #print (matrix)
 solveSudokuList(sList, primeTable)
 printSudokuList(sList)
-solveSudokuList(sList, primeTable)
-printSudokuList(sList)
-solveSudokuList(sList, primeTable)
-printSudokuList(sList)
+#printSudokuList(sList)
+#solveSudokuList(sList, primeTable)
+#printSudokuList(sList)
+#solveSudokuList(sList, primeTable)
+#printSudokuList(sList)
 #eliminate(sList,8)
 
-printSudokuList(sList)
+#printSudokuList(sList)
 
 
 
