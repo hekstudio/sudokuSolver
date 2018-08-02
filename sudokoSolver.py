@@ -53,6 +53,18 @@ def eliminate(dataList, index):
             dataList[i] = dataList[i] - dataList[index]
 
 def check(dataList, fixList):
+    tempList = list()
+    tempFix = list()
+    # Go through all rows
+    for i in range(0,73,9):
+        tempList.clear()
+        tempFix.clear()
+        # Go through each row
+        for j in range(i,i+9):
+            if (fixList(j) == 1):
+                tempFix.append(dataList[j])
+            else:
+                tempList.append(dataList[j])
     return
             
 
