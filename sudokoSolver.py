@@ -21,14 +21,6 @@ def printSudokuList(list):
             print ('')
     print ('----------------------------------------')
 
-<<<<<<< HEAD
-def solveSudokuList(dataList, fixList, primeList):
-    for i in range(81):
-        if(dataList[i] < 10):
-            eliminate(dataList,i, primeList)
-
-def eliminate(dataList, index, primeList):
-=======
 def printList(list):
     for i in range(81):
         print (str(i)+"  "+str(list[i]))
@@ -39,7 +31,6 @@ def solveSudokuList(dataList, fixList):
             eliminate(dataList,i,fixList)
 
 def eliminate(dataList, index, fixList):
->>>>>>> f1d94a4780b514205f80b73866b86761fa00e91a
     listToDelete = list()
     for i in range(81):
         listToDelete.append(0)
