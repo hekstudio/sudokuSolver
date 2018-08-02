@@ -80,12 +80,13 @@ def check(dataList, fixList):
 def loadChallenge(file,list,fixList):
     f = open(file,'r')
     for line in f:
-        x,y,value = line.split(',')
-        x = int(x)
-        y = int(y)
-        value = int(value)
-        list[y*9+x] = value
-        fixList[y*9+x] = 1
+        if '#' not in line:
+            x,y,value = line.split(',')
+            x = int(x)
+            y = int(y)
+            value = int(value)
+            list[y*9+x] = value
+            fixList[y*9+x] = 1
     f.close()
 
 # ----------------------------------------------
@@ -94,7 +95,7 @@ def loadChallenge(file,list,fixList):
 # Load Prime Table
 f = open("primeList.txt","r")
 primeTable = ast.literal_eval(f.read())
-print (primeTable[1])
+#print (primeTable[1])
 f.close()
 
 sList = list()
@@ -104,13 +105,14 @@ initSudokuList(sList,[1,2,3,4,5,6,7,8,9])
 initSudokuList(fixList,0)
 
 
-printList(sList)
+#printList(sList)
 loadChallenge("problem1.txt",sList,fixList)
-printSudokuList(fixList)
-printList(sList)
+#printSudokuList(fixList)
+#printList(sList)
 
 #print (matrix)
 solveSudokuList(sList,fixList)
+
 printList(sList)
 #printSudokuList(sList)
 #solveSudokuList(sList, primeTable)
